@@ -27,7 +27,7 @@ This is a Quiz application built using JavaScript as a Single Page Application (
 7. Optionally, restart the quiz to try again.
 
 ## Demo
-[Link to live demo](#) *(Replace with the actual link if available)*
+[Demo on GitHub Pages]([#](https://hortelao.github.io/Quiz-SPA-JavaScript/#/))
 
 
 
