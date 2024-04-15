@@ -37,9 +37,14 @@ function showQuestion(question) {
   <div class="truefalse">  
   <button id="true" class='next btn btn-dark'>True</button>
   <button id="false" class='next btn btn-dark'>False</button>
-  <div id="timer">Time remaining: 10 seconds</div>
+
+ 
   <div id="score">Score: ${score}</div>
   <div id="remaining">Remaining questions: ${remainingQuestions}/${qList.length}</div>
+   <div id="timer">
+    <div id="progress-bar"></div>
+    <span>Time remaining: 10 seconds</span>
+</div>
   </div>`;
     container.appendChild(elem);
     startListening(question.correct_answer);
@@ -78,6 +83,7 @@ function startListening(correct_answer) {
 function startTimer() {
     let secondsLeft = 10;
     const timerElem = document.getElementById("timer");
+    const progressBar = document.getElementById("progress-bar");
 
     timerId = setInterval(() => {
         addEventListener('hashchange', (e) => {
@@ -86,10 +92,15 @@ function startTimer() {
             clearTimeout(timerId);
         });
         secondsLeft--;
-        timerElem.textContent = `Time remaining: ${secondsLeft} seconds`;
+        const progressWidth = (secondsLeft / 10) * 100; // Calculate width based on remaining time
+        progressBar.style.width = `${progressWidth}%`; // Update progress bar width
+        if(secondsLeft <= 5) {
+            progressBar.style.backgroundColor = `#b22626`;
+        }
+        timerElem.children[1].textContent = `Time remaining: ${secondsLeft} seconds`;
         if (secondsLeft === 0) {
             clearTimeout(timerId);
-            timerElem.textContent = "Time's up!";
+            timerElem.children[1].textContent = "Time's up!";
             if (i == qList.length - 1) {
                 handleGameCompletion();
                 return;
